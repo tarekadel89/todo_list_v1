@@ -5,13 +5,13 @@ const _ = require('lodash');
 const currDate = require(__dirname + "/date.js")
 
 const app = new express();
-const port = 3000;
+//const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
-mongoose.connect("mongodb://127.0.0.1:27017/todolistDB", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://admin-tarek:Hd5nx6ZPgNgADYRt@cluster0.rczrr34.mongodb.net/todolistDB", { useNewUrlParser: true });
 mongoose.set('strictQuery', false);
 
 const List = mongoose.model("List", {
@@ -112,7 +112,12 @@ app.post("/delete", function (req, res) {
 });
 
 
-app.listen(process.env.PORT || port, function () {
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
+app.listen(port, function () {
     console.log("Todo list app is up and running.");
 
 });
